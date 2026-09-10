@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Wicket Turf - Book Your Slot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🏏 Three Wicket Turf</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#pricing">Timings & Rates</a>
+            <a href="#features">Features</a>
+            <a href="#booking" class="nav-btn">Book Now</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Play Like A Pro at <span>Three Wicket Turf</span></h1>
+            <p>Premium 3-Wicket Cricket Arena with Floodlights & Astroturf. Grab your squad and book your slot today!</p>
+            <a href="#booking" class="btn-primary">Book Your Slot Now</a>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <h2>Timings & Hourly Rates</h2>
+        <p class="section-subtitle">Choose your preferred play slot based on time and pricing</p>
+        
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Morning Slot</h3>
+                <p class="time">06:00 AM - 11:00 AM</p>
+                <p class="price">₹600 <span>/ hour</span></p>
+                <ul>
+                    <li>✔ Cool & Pleasant Weather</li>
+                    <li>✔ Free Mineral Water</li>
+                    <li>✔ Bat & Ball Provided</li>
+                </ul>
+                <button class="select-slot-btn" onclick="selectSlotTime('06:00 AM - 11:00 AM', 600)">Select Slot</button>
+            </div>
+
+            <div class="price-card popular">
+                <span class="badge">Most Popular</span>
+                <h3>Evening Prime</h3>
+                <p class="time">04:00 PM - 09:00 PM</p>
+                <p class="price">₹900 <span>/ hour</span></p>
+                <ul>
+                    <li>✔ High-Intensity Floodlights</li>
+                    <li>✔ Peak Time Action</li>
+                    <li>✔ Complimentary Refreshments</li>
+                </ul>
+                <button class="select-slot-btn" onclick="selectSlotTime('04:00 PM - 09:00 PM', 900)">Select Slot</button>
+            </div>
+
+            <div class="price-card">
+                <h3>Night Owl</h3>
+                <p class="time">09:00 PM - 12:00 AM</p>
+                <p class="price">₹800 <span>/ hour</span></p>
+                <ul>
+                    <li>✔ Full Floodlight Access</li>
+                    <li>✔ Peaceful Night Vibe</li>
+                    <li>✔ Free Parking Space</li>
+                </ul>
+                <button class="select-slot-btn" onclick="selectSlotTime('09:00 PM - 12:00 AM', 800)">Select Slot</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2>Why Choose Three Wicket Turf?</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i>🛡️</i>
+                <h3>FIFA Grade Astroturf</h3>
+                <p>Safe, bouncy, and injury-free premium grass surface designed specially for leather and tennis ball cricket.</p>
+            </div>
+            <div class="feature-box">
+                <i>💡</i>
+                <h3>LED Floodlights</h3>
+                <p>High-lumens stadium-grade night illumination so you never lose sight of the ball under lights.</p>
+            </div>
+            <div class="feature-box">
+                <i>🥤</i>
+                <h3>Dugout & Refreshments</h3>
+                <p>Spacious seating benches for teams, scoreboards, and instant energy drinks available on-site.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="booking-section">
+        <h2>Book Your Turf Slot</h2>
+        <div class="booking-card">
+            <form id="turfForm" onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <label>Your Full Name</label>
+                    <input type="text" id="name" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter 10-digit mobile number">
+                </div>
+                <div class="form-group">
+                    <label>Booking Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Selected Slot & Timing</label>
+                    <select id="timeSlot" required onchange="updatePriceDisplay()">
+                        <option value="" disabled selected>-- Choose Slot --</option>
+                        <option value="06:00 AM - 11:00 AM" data-price="600">Morning Slot (06 AM - 11 AM) - ₹600/hr</option>
+                        <option value="04:00 PM - 09:00 PM" data-price="900">Evening Prime (04 PM - 09 PM) - ₹900/hr</option>
+                        <option value="09:00 PM - 12:00 AM" data-price="800">Night Owl (09 PM - 12 AM) - ₹800/hr</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Number of Hours</label>
+                    <input type="number" id="hours" min="1" max="5" value="1" required onchange="updatePriceDisplay()">
+                </div>
+                
+                <div class="price-summary">
+                    <h3>Total Amount: <span id="totalAmount">₹0</span></h3>
+                </div>
+
+                <button type="submit" class="btn-submit">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="success-icon">✅</div>
+            <h2>Booking Confirmed!</h2>
+            <p id="modalMessage"></p>
+            <button class="btn-primary" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Three Wicket Turf Arena. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
